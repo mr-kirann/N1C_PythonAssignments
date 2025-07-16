@@ -4,6 +4,8 @@ import pymongo
 from pymongo import MongoClient
 from datetime import datetime
 import re
+from bson.objectid import ObjectId
+
 
 # Connect to MongoDB
 client = MongoClient("mongodb://localhost:27017/")
@@ -55,7 +57,7 @@ class ExpenseTracker:
 
         new_expense = Expense(description, amount, date)
         self.expenses.insert_one(new_expense.to_dict())
-        print("\n✅ Expense added successfully!")
+        print("\n Expense added successfully!")
 
     def view_expenses(self):
         print("\n--- Your Expenses ---")
@@ -70,24 +72,24 @@ class ExpenseTracker:
 
     def view_total_expenses(self):
         total = sum(expense["amount"] for expense in self.expenses.find())
-        print(f"\n💰 Total Expenses: ${total:.2f}")
+        print(f"\n Total Expenses: ${total:.2f}")
 
     def delete_expense(self):
         self.view_expenses()
         expense_id = input("\nEnter the ID of the expense to delete: ")
 
         try:
-            result = self.expenses.delete_one({"_id": pymongo.ObjectId(expense_id)})
+            result = self.expenses.delete_one({"_id": ObjectId(expense_id)})
             if result.deleted_count > 0:
-                print("\n✅ Expense deleted successfully!")
+                print("\n Expense deleted successfully!")
             else:
-                print("\n❌ No expense found with that ID!")
+                print("\n No expense found with that ID!")
         except Exception as e:
-            print(f"❌ Invalid ID format! Error: {e}")
+            print(f" Invalid ID format! Error: {e}")
 
     def menu(self):
         while True:
-            print("\n📌 Personal Expense Tracker")
+            print("\n Personal Expense Tracker")
             print("1. Add New Expense")
             print("2. View All Expenses")
             print("3. View Total Expenses")
