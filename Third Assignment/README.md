@@ -49,7 +49,17 @@ Personal Expense Tracker
 
 ## Notes
 - Make sure MongoDB is running before starting the application.
+    - **If MongoDB is not running, the application will not work and will fail to connect to the database.**
 - All data will be stored locally in your MongoDB instance.
+- **If you encounter an error related to `bson.codec_options` or similar, run the following commands to fix the issue:**
+  ```sh
+  pip uninstall -y bson && pip install --upgrade --force-reinstall pymongo
+  
+  pip uninstall -y bson
+  
+  pip install --upgrade --force-reinstall pymongo
+  ```
+  The `bson` module is included with `pymongo` and should not be installed separately.
 
 ## License
 This project is for educational purposes.
